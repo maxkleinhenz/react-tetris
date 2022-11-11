@@ -1,13 +1,11 @@
 import React from "react";
 import Gameboard from "./Gameboard";
 import * as Game from "@/models/Game";
-import HeldPiece from "./HeldPiece";
 import PieceQueue from "./PieceQueue";
 import { KeyboardMap, useKeyboardControls } from "@/hooks/useKeyboardControls";
 import { Context } from "@/context";
 
 export type RenderFn = (params: {
-  HeldPiece: React.ComponentType;
   Gameboard: React.ComponentType;
   PieceQueue: React.ComponentType;
   points: number;
@@ -20,7 +18,6 @@ export type RenderFn = (params: {
 export type Controller = {
   pause: () => void;
   resume: () => void;
-  hold: () => void;
   hardDrop: () => void;
   moveDown: () => void;
   moveLeft: () => void;
@@ -44,8 +41,6 @@ const defaultKeyboardMap: KeyboardMap = {
   x: "FLIP_CLOCKWISE",
   up: "FLIP_CLOCKWISE",
   p: "TOGGLE_PAUSE",
-  c: "HOLD",
-  shift: "HOLD",
 };
 
 // https://harddrop.com/wiki/Tetris_Worlds#Gravity
@@ -75,7 +70,6 @@ export default function Tetris(props: Props): JSX.Element {
     () => ({
       pause: () => dispatch("PAUSE"),
       resume: () => dispatch("RESUME"),
-      hold: () => dispatch("HOLD"),
       hardDrop: () => dispatch("HARD_DROP"),
       moveDown: () => dispatch("MOVE_DOWN"),
       moveLeft: () => dispatch("MOVE_LEFT"),
@@ -90,7 +84,6 @@ export default function Tetris(props: Props): JSX.Element {
   return (
     <Context.Provider value={game}>
       {props.children({
-        HeldPiece,
         Gameboard,
         PieceQueue,
         points: game.points,

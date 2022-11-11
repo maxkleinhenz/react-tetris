@@ -7,24 +7,12 @@ import Tetris from "./Tetris";
 const GamePanel = (): JSX.Element => (
   <div>
     <Tetris>
-      {({
-        Gameboard,
-        HeldPiece,
-        PieceQueue,
-        points,
-        linesCleared,
-        state,
-        controller,
-      }) => (
+      {({ Gameboard, PieceQueue, points, linesCleared, state, controller }) => (
         <div>
           <div style={{ opacity: state === "PLAYING" ? 1 : 0.5 }}>
             <Score points={points} linesCleared={linesCleared}></Score>
 
             <div className="flex flex-1 gap-2">
-              <div className="self-start">
-                <HeldPiece />
-              </div>
-
               <Gameboard />
 
               <div className="self-start">

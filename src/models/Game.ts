@@ -18,13 +18,10 @@ import { Piece } from "./Piece";
 
 export type State = "PAUSED" | "PLAYING" | "LOST";
 
-type HeldPiece = { available: boolean; piece: Piece };
-
 export type Game = {
   state: State;
   matrix: Matrix;
   piece: PositionedPiece;
-  heldPiece: HeldPiece | undefined;
   queue: PieceQueue.PieceQueue;
   points: number;
   lines: number;
@@ -37,7 +34,6 @@ export type Action =
   | "RESUME"
   | "TOGGLE_PAUSE"
   | "TICK"
-  | "HOLD"
   | "HARD_DROP"
   | "MOVE_DOWN"
   | "MOVE_LEFT"
@@ -89,31 +85,6 @@ export const update = (game: Game, action: Action): Game => {
     case "FLIP_COUNTERCLOCKWISE": {
       return applyMove(flipCounterclockwise, game);
     }
-    case "HOLD": {
-      if (game.state !== "PLAYING") return game;
-      if (game.heldPiece && !game.heldPiece.available) return game;
-
-      // Ensure the held piece will fit on the matrix
-      if (
-        game.heldPiece &&
-        !isEmptyPosition(game.matrix, {
-          ...game.piece,
-          piece: game.heldPiece.piece,
-        })
-      ) {
-        return game;
-      }
-
-      const next = PieceQueue.getNext(game.queue);
-      const newPiece = game.heldPiece?.piece ?? next.piece;
-
-      return {
-        ...game,
-        heldPiece: { piece: game.piece.piece, available: false }, // hmm
-        piece: initializePiece(newPiece),
-        queue: newPiece === next.piece ? next.queue : game.queue,
-      };
-    }
     default: {
       const exhaustiveCheck: never = action;
       throw new Error(`Unhandled action: ${exhaustiveCheck}`);
@@ -130,9 +101,6 @@ const lockInPiece = (game: Game): Game => {
     state: isEmptyPosition(matrix, piece) ? game.state : "LOST",
     matrix,
     piece,
-    heldPiece: game.heldPiece
-      ? { ...game.heldPiece, available: true }
-      : undefined,
     queue: next.queue,
     lines: game.lines + linesCleared,
     points: game.points + addScore(linesCleared),
@@ -172,7 +140,7 @@ const applyMove = (
 };
 
 export const init = (): Game => {
-  const queue = PieceQueue.create(5);
+  const queue = PieceQueue.create(1);
   const next = PieceQueue.getNext(queue);
   return {
     state: "PLAYING",
@@ -180,7 +148,6 @@ export const init = (): Game => {
     lines: 0,
     matrix: buildMatrix(),
     piece: initializePiece(next.piece),
-    heldPiece: undefined,
     queue: next.queue,
   };
 };
