@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import type { Controller as ControllerType } from "./Tetris";
+import type { Controller as ControllerType } from "@/components/Tetris";
 
 type Props = {
   controller: ControllerType;

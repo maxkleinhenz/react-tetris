@@ -1,4 +1,4 @@
-import { Piece, pieces } from "../models/Piece";
+import { Piece, pieces } from "@/models/Piece";
 
 export type PieceQueue = {
   minimumLength: number;
