@@ -1,4 +1,5 @@
 import React from "react";
+import Controller from "./Controller";
 import Popup from "./Popup";
 import Score from "./Score";
 import Tetris from "./Tetris";
@@ -31,7 +32,7 @@ const GamePanel = (): JSX.Element => (
               </div>
             </div>
 
-            {/* <Controller controller={controller} /> */}
+            <Controller controller={controller} />
           </div>
           {state === "PAUSED" && (
             <Popup
