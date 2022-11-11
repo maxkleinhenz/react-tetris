@@ -4,6 +4,7 @@ import styled from "styled-components";
 import "./App.css";
 import GamePanel from "./components/GamePanel";
 import Tetris from "./components/Tetris";
+import styles from "./App.module.css";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -18,20 +19,12 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const VerticallyCenterChildren = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 function App() {
   return (
     <Container>
-      <VerticallyCenterChildren>
+      <div className={styles["vertically-center-children"]}>
         <GamePanel />
-      </VerticallyCenterChildren>
+      </div>
     </Container>
   );
 }
