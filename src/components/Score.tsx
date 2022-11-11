@@ -7,8 +7,9 @@ const pad = (n: number) => {
   let str = n.toString();
   const count = 4 - str.length;
   for (let i = 0; i < count; i++) {
-    str = "0 " + str;
+    str = `0${str}`;
   }
+  str = str.split("").join(" ");
   return str;
 };
 
