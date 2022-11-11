@@ -1,74 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-import Controller from "./Controller";
+import Popup from "./Popup";
 import Score from "./Score";
 import Tetris from "./Tetris";
 
-const Container = styled.div`
-  margin: 24px auto 0;
-  width: 100%;
-  max-width: 376px;
-`;
-
-// const Score = styled.div`
-//   position: relative;
-//   font-family: monospace;
-//   font-size: 18px;
-//   color: #888;
-// `;
-
-// const LeftHalf = styled.div`
-//   display: inline-block;
-//   width: 50%;
-// `;
-
-// const RightHalf = styled(LeftHalf)`
-//   text-align: right;
-// `;
-
-const Column = styled.div`
-  display: inline-block;
-  vertical-align: top;
-`;
-
-const LeftColumn = styled(Column)`
-  width: 88px;
-`;
-
-const RightColumn = styled(LeftColumn)`
-  padding-left: 15px;
-`;
-
-const MiddleColumn = styled(Column)`
-  width: 200px;
-`;
-
-const Popup = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 12px 24px;
-  border-radius: 4px;
-  text-align: center;
-  box-shadow: 2px 7px 18px 3px #d2d2d2;
-`;
-
-const Alert = styled.h2`
-  color: #666;
-  margin: 0;
-`;
-
-const Button = styled.button`
-  border: 1px solid #666;
-  background: none;
-  margin-top: 12px;
-  border-radius: 4px;
-`;
-
 const GamePanel = (): JSX.Element => (
-  <Container>
+  <div>
     <Tetris>
       {({
         Gameboard,
@@ -83,37 +19,39 @@ const GamePanel = (): JSX.Element => (
           <div style={{ opacity: state === "PLAYING" ? 1 : 0.5 }}>
             <Score points={points} linesCleared={linesCleared}></Score>
 
-            <LeftColumn>
-              <HeldPiece />
-            </LeftColumn>
+            <div className="flex flex-1 gap-2">
+              <div className="self-start">
+                <HeldPiece />
+              </div>
 
-            <MiddleColumn>
               <Gameboard />
-            </MiddleColumn>
 
-            <RightColumn>
-              <PieceQueue />
-            </RightColumn>
+              <div className="self-start">
+                <PieceQueue />
+              </div>
+            </div>
 
-            <Controller controller={controller} />
+            {/* <Controller controller={controller} /> */}
           </div>
           {state === "PAUSED" && (
-            <Popup>
-              <Alert>Paused</Alert>
-              <Button onClick={controller.resume}>Resume</Button>
-            </Popup>
+            <Popup
+              title="Paused"
+              buttonText="Resume"
+              buttonAction={controller.resume}
+            ></Popup>
           )}
 
           {state === "LOST" && (
-            <Popup>
-              <Alert>Game Over</Alert>
-              <Button onClick={controller.restart}>Start</Button>
-            </Popup>
+            <Popup
+              title="Game Over"
+              buttonText="Start"
+              buttonAction={controller.restart}
+            ></Popup>
           )}
         </div>
       )}
     </Tetris>
-  </Container>
+  </div>
 );
 
 export default GamePanel;
