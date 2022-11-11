@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Controller from "./Controller";
+import Score from "./Score";
 import Tetris from "./Tetris";
 
 const Container = styled.div`
@@ -9,21 +10,21 @@ const Container = styled.div`
   max-width: 376px;
 `;
 
-const Score = styled.div`
-  position: relative;
-  font-family: monospace;
-  font-size: 18px;
-  color: #888;
-`;
+// const Score = styled.div`
+//   position: relative;
+//   font-family: monospace;
+//   font-size: 18px;
+//   color: #888;
+// `;
 
-const LeftHalf = styled.div`
-  display: inline-block;
-  width: 50%;
-`;
+// const LeftHalf = styled.div`
+//   display: inline-block;
+//   width: 50%;
+// `;
 
-const RightHalf = styled(LeftHalf)`
-  text-align: right;
-`;
+// const RightHalf = styled(LeftHalf)`
+//   text-align: right;
+// `;
 
 const Column = styled.div`
   display: inline-block;
@@ -80,22 +81,7 @@ const GamePanel = (): JSX.Element => (
       }) => (
         <div>
           <div style={{ opacity: state === "PLAYING" ? 1 : 0.5 }}>
-            <Score>
-              <LeftHalf>
-                <p>
-                  points
-                  <br />
-                  <Digits>{points}</Digits>
-                </p>
-              </LeftHalf>
-              <RightHalf>
-                <p>
-                  lines
-                  <br />
-                  <Digits>{linesCleared}</Digits>
-                </p>
-              </RightHalf>
-            </Score>
+            <Score points={points} linesCleared={linesCleared}></Score>
 
             <LeftColumn>
               <HeldPiece />
@@ -129,32 +115,5 @@ const GamePanel = (): JSX.Element => (
     </Tetris>
   </Container>
 );
-
-const Digit = styled.span`
-  font-family: monospace;
-  padding: 1px;
-  margin: 1px;
-  font-size: 24px;
-`;
-
-type DigitsProps = {
-  children: number;
-  count?: number;
-};
-const Digits = ({ children, count = 4 }: DigitsProps): JSX.Element => {
-  let str = children.toString();
-
-  while (str.length < count) {
-    str = `${0}${str}`;
-  }
-
-  return (
-    <>
-      {str.split("").map((digit, index) => (
-        <Digit key={index}>{digit}</Digit>
-      ))}
-    </>
-  );
-};
 
 export default GamePanel;
