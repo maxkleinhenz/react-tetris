@@ -2,11 +2,11 @@ import React from "react";
 import type { Controller as ControllerType } from "@/feature/game/Tetris";
 import {
   PauseIcon,
-  ArrowDownTrayIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowDownIcon,
-  ArrowPathIcon,
+  ChevronDoubleDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
+  ArrowUturnRightIcon,
 } from "@heroicons/react/24/outline";
 import ControllerButton from "./ControllerButton";
 import ControllerActionButton from "./ControllerActionButton";
@@ -24,7 +24,7 @@ export default function Controller({ controller }: Props): JSX.Element {
             title="lip piece clockwise"
             action={controller.flipClockwise}
           >
-            <ArrowPathIcon />
+            <ArrowUturnRightIcon />
           </ControllerButton>
         </div>
         <div className="flex items-center justify-between">
@@ -32,13 +32,13 @@ export default function Controller({ controller }: Props): JSX.Element {
             title="Move piece left"
             action={controller.moveLeft}
           >
-            <ArrowLeftIcon />
+            <ChevronLeftIcon />
           </ControllerButton>
           <ControllerButton
             title="Move piece right"
             action={controller.moveRight}
           >
-            <ArrowRightIcon />
+            <ChevronRightIcon />
           </ControllerButton>
         </div>
         <div className="flex items-center justify-center">
@@ -46,7 +46,7 @@ export default function Controller({ controller }: Props): JSX.Element {
             title="Move piece down"
             action={controller.moveDown}
           >
-            <ArrowDownIcon />
+            <ChevronDownIcon />
           </ControllerButton>
         </div>
       </div>
@@ -55,7 +55,7 @@ export default function Controller({ controller }: Props): JSX.Element {
           <PauseIcon />
         </ControllerActionButton>
         <ControllerActionButton title="Drop piece" action={controller.hardDrop}>
-          <ArrowDownTrayIcon />
+          <ChevronDoubleDownIcon />
         </ControllerActionButton>
       </div>
     </div>
