@@ -18,7 +18,7 @@ const Score = (props: Props): JSX.Element => {
   const linesClearedStr = pad(props.linesCleared);
 
   return (
-    <div className="grid grid-cols-2 font-mono text-slate-600">
+    <div className="grid grid-cols-2 font-mono text-center text-slate-700 dark:text-slate-200">
       <div>
         <p>
           points

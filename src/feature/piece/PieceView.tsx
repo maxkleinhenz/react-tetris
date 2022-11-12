@@ -1,5 +1,5 @@
 import React from "react";
-import { getBlocks, getClassName, Piece } from "@/models/Piece";
+import { getBlocks, getClassName, Piece } from "@/feature/piece/Piece";
 
 type Props = {
   piece?: Piece;

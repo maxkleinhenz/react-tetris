@@ -1,9 +1,9 @@
 import React from "react";
-import Gameboard from "./Gameboard";
-import * as Game from "@/models/Game";
-import PieceQueue from "./PieceQueue";
+import Gameboard from "@/feature/game/Gameboard";
+import * as Game from "@/feature/game/Game";
+import PieceQueue from "@/feature/piece/PieceQueue";
 import { KeyboardMap, useKeyboardControls } from "@/hooks/useKeyboardControls";
-import { Context } from "@/context";
+import { GameContext } from "@/feature/game/GameContext";
 
 export type RenderFn = (params: {
   Gameboard: React.ComponentType;
@@ -82,7 +82,7 @@ export default function Tetris(props: Props): JSX.Element {
   );
 
   return (
-    <Context.Provider value={game}>
+    <GameContext.Provider value={game}>
       {props.children({
         Gameboard,
         PieceQueue,
@@ -92,6 +92,6 @@ export default function Tetris(props: Props): JSX.Element {
         level,
         controller,
       })}
-    </Context.Provider>
+    </GameContext.Provider>
   );
 }

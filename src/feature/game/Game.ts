@@ -12,9 +12,9 @@ import {
   setPiece,
   hardDrop,
 } from "./Matrix";
-import Constants from "@/constants";
-import * as PieceQueue from "@/modules/piece-queue";
-import { Piece } from "./Piece";
+import Constants from "@/app/constants";
+import * as PieceQueue from "@/feature/piece/piece-queue";
+import { Piece } from "../piece/Piece";
 
 export type State = "PAUSED" | "PLAYING" | "LOST";
 
