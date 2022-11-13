@@ -18,6 +18,14 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* * {
+    transition: color, background-color, border-color, text-decoration-color,
+      fill, stroke, ease-in-out 150ms;
+  }
+  *:hover {
+    transition: none;
+  } */
+
   body {
     margin: 0;
     @apply bg-neutral-100 dark:bg-neutral-900;
@@ -61,6 +69,6 @@
     background-color: #e3be58;
   }
   .piece-preview {
-    background-color: #eee;
+    @apply bg-neutral-300 dark:bg-neutral-600;
   }
 }

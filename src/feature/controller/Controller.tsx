@@ -17,11 +17,11 @@ type Props = {
 
 export default function Controller({ controller }: Props): JSX.Element {
   return (
-    <div className="flex flex-1 justify-center items-center gap-10 mx-auto mt-5">
-      <div className="grid grid-rows-3 boder rounded-full border-solid p-3 border-gray-400 w-40 h-40">
+    <div className="flex justify-center items-center gap-10 mx-auto mt-5">
+      <div className="grid grid-rows-3 boder rounded-full border-solid p-3 border-slate-400 w-40 h-40">
         <div className="flex items-center justify-center">
           <ControllerButton
-            title="lip piece clockwise"
+            title="Flip piece clockwise"
             action={controller.flipClockwise}
           >
             <ArrowUturnRightIcon />

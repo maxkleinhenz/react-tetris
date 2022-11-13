@@ -20,7 +20,7 @@ const GamePanel = (): JSX.Element => (
             <div style={{ opacity: state === "PLAYING" ? 1 : 0.5 }}>
               <Score points={points} linesCleared={linesCleared}></Score>
 
-              <div className="flex flex-1 gap-2">
+              <div className="flex gap-2">
                 <Gameboard />
 
                 <div className="self-start">

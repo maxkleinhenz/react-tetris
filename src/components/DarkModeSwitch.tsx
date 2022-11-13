@@ -43,7 +43,7 @@ const DarkModeSwitch = () => {
         title={`Change to ${darkMode ? "light" : "dark"} mode`}
         onClick={handleToggleDarkMode}
       >
-        {darkMode ? <MoonIcon /> : <SunIcon />}
+        {darkMode ? <SunIcon /> : <MoonIcon />}
       </button>
     </div>
   );
