@@ -83,15 +83,3 @@ const StartGameModal = (props: Props) => {
 };
 
 export default StartGameModal;
-
-// [multiplayer, setMultiplayer] = useState(false);
-// [buttons, setButton] = useState<ModalButton[]>([]);
-
-// return (
-//   <Modal title="Start Game" buttons={buttons}>
-//     <div>
-//       <p>Start a singleplayer or join a multiplayer session</p>
-//       {multiplayer && <JoinMultiplayer />}
-//     </div>
-//   </Modal>
-// );
