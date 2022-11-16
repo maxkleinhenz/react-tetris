@@ -16,7 +16,7 @@ import Constants from "@/app/constants";
 import * as PieceQueue from "@/feature/piece/piece-queue";
 import { Piece } from "../piece/Piece";
 
-export type State = "PAUSED" | "PLAYING" | "LOST";
+export type State = "STOPPED" | "PAUSED" | "PLAYING" | "LOST";
 
 export type Game = {
   state: State;
@@ -30,6 +30,7 @@ export type Game = {
 export const getLevel = (game: Game): number => Math.floor(game.lines / 10) + 1;
 
 export type Action =
+  | "STOP"
   | "PAUSE"
   | "RESUME"
   | "TOGGLE_PAUSE"
@@ -44,8 +45,11 @@ export type Action =
 
 export const update = (game: Game, action: Action): Game => {
   switch (action) {
+    case "STOP": {
+      return game.state === "PLAYING" ? { ...game, state: "STOPPED" } : game;
+    }
     case "RESTART": {
-      return init();
+      return init("PLAYING");
     }
     case "PAUSE": {
       return game.state === "PLAYING" ? { ...game, state: "PAUSED" } : game;
@@ -139,11 +143,11 @@ const applyMove = (
   return afterFlip ? { ...game, piece: afterFlip } : game;
 };
 
-export const init = (): Game => {
+export const init = (state: State = "STOPPED"): Game => {
   const queue = PieceQueue.create(1);
   const next = PieceQueue.getNext(queue);
   return {
-    state: "PLAYING",
+    state: state,
     points: 0,
     lines: 0,
     matrix: buildMatrix(),

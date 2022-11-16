@@ -4,6 +4,12 @@ import * as Game from "@/feature/game/Game";
 import PieceQueue from "@/feature/piece/PieceQueue";
 import { KeyboardMap, useKeyboardControls } from "@/hooks/useKeyboardControls";
 import { GameContext } from "@/feature/game/GameContext";
+import {
+  SessionConnectHandler,
+  SessionDisconnectHandler,
+  SessionMessageHandler,
+  useMultiplayer,
+} from "../multiplayer/useMultiplayer";
 
 export type RenderFn = (params: {
   Gameboard: React.ComponentType;
@@ -25,6 +31,8 @@ export type Controller = {
   flipClockwise: () => void;
   flipCounterclockwise: () => void;
   restart: () => void;
+  startMultiplayer: (username: string, room: string) => void;
+  sendClearedLines: (lines: number) => void;
 };
 
 type Props = {
@@ -48,10 +56,31 @@ const tickSeconds = (level: number) =>
   (0.8 - (level - 1) * 0.007) ** (level - 1);
 
 export default function Tetris(props: Props): JSX.Element {
+  const onSessionConnected: SessionConnectHandler = (ev) => {
+    console.log("on connected");
+    dispatch("RESTART");
+  };
+
+  const onSessionMessage: SessionMessageHandler = (e) => {
+    console.log("on message", e);
+  };
+
+  const onSessionClose: SessionDisconnectHandler = (e) => {
+    console.log("on close");
+  };
+
   const [game, dispatch] = React.useReducer(Game.update, Game.init());
+  const { startMultiplayer, closeMultiplayer, sendMessage } = useMultiplayer(
+    onSessionConnected,
+    onSessionMessage,
+    onSessionClose
+  );
+
   const keyboardMap = props.keyboardControls ?? defaultKeyboardMap;
   useKeyboardControls(keyboardMap, dispatch);
+
   const level = Game.getLevel(game);
+  const linesRef = React.useRef(game.lines);
 
   React.useEffect(() => {
     let interval: number | undefined;
@@ -77,9 +106,23 @@ export default function Tetris(props: Props): JSX.Element {
       flipClockwise: () => dispatch("FLIP_CLOCKWISE"),
       flipCounterclockwise: () => dispatch("FLIP_COUNTERCLOCKWISE"),
       restart: () => dispatch("RESTART"),
+      startMultiplayer: (username: string, room: string) => {
+        startMultiplayer(username, room);
+      },
+      sendClearedLines: (lines: number) => {
+        const l = Math.floor(lines / 2);
+        if (l > 0) sendMessage({ type: "LINES_CLEARED", line: l });
+      },
     }),
-    [dispatch]
+    [dispatch, startMultiplayer, sendMessage]
   );
+
+  React.useEffect(() => {
+    const linesCleared = game.lines - linesRef.current;
+    controller.sendClearedLines(linesCleared);
+
+    linesRef.current = game.lines;
+  }, [game.lines, controller.sendClearedLines]);
 
   return (
     <GameContext.Provider value={game}>
