@@ -10,7 +10,6 @@ import {
 } from "@heroicons/react/24/outline";
 import ControllerButton from "./ControllerButton";
 import ControllerActionButton from "./ControllerActionButton";
-import { PlusIcon } from "@heroicons/react/24/solid";
 
 type Props = {
   controller: ControllerType;
@@ -52,12 +51,12 @@ export default function Controller({ controller }: Props): JSX.Element {
         </div>
       </div>
       <div className="flex flex-col gap-3">
-        <ControllerActionButton
+        {/* <ControllerActionButton
           title="Send"
           action={() => controller.sendClearedLines(2)}
         >
           <PlusIcon />
-        </ControllerActionButton>
+        </ControllerActionButton> */}
         <ControllerActionButton title="Pause" action={controller.pause}>
           <PauseIcon />
         </ControllerActionButton>
