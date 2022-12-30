@@ -18,21 +18,17 @@ const Score = (props: Props): JSX.Element => {
   const linesClearedStr = pad(props.linesCleared);
 
   return (
-    <div className="grid grid-cols-2 font-mono text-center text-slate-700 dark:text-slate-300">
-      <div>
-        <p>
-          points
-          <br />
-          <span className="text-xl">{pointsStr}</span>
-        </p>
-      </div>
-      <div>
-        <p>
-          lines
-          <br />
-          <span className="text-xl">{linesClearedStr}</span>
-        </p>
-      </div>
+    <div className="grid grid-cols-2 my-2 font-mono text-center text-slate-700 dark:text-slate-300">
+      <p className="m-0">
+        points
+        <br />
+        <span className="text-xl">{pointsStr}</span>
+      </p>
+      <p className="m-0">
+        lines
+        <br />
+        <span className="text-xl">{linesClearedStr}</span>
+      </p>
     </div>
   );
 };

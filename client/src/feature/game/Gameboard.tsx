@@ -8,7 +8,7 @@ export default function GameboardView(): JSX.Element {
   const matrix = viewMatrix(game);
 
   return (
-    <table className="game-board">
+    <table className="game-board grow">
       <tbody>
         {matrix.map((row, i) => {
           const blocksInRow = row.map((block, j) => {
