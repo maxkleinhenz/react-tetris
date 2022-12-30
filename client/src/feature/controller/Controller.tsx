@@ -9,7 +9,6 @@ import {
   ArrowUturnRightIcon,
 } from "@heroicons/react/24/outline";
 import ControllerButton from "./ControllerButton";
-import ControllerActionButton from "./ControllerActionButton";
 
 type Props = {
   controller: ControllerType;
@@ -57,12 +56,12 @@ export default function Controller({ controller }: Props): JSX.Element {
         >
           <PlusIcon />
         </ControllerActionButton> */}
-        <ControllerActionButton title="Pause" action={controller.pause}>
+        <ControllerButton title="Pause" action={controller.pause}>
           <PauseIcon />
-        </ControllerActionButton>
-        <ControllerActionButton title="Drop piece" action={controller.hardDrop}>
+        </ControllerButton>
+        <ControllerButton title="Drop piece" action={controller.hardDrop}>
           <ChevronDoubleDownIcon />
-        </ControllerActionButton>
+        </ControllerButton>
       </div>
     </div>
   );

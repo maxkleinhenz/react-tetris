@@ -7,62 +7,52 @@ import StartGameModal from "./StartGameModal";
 
 const GamePanel = (): JSX.Element => {
   return (
-    <div className="flex place-items-center h-screen">
-      <div className="mx-auto">
-        <Tetris>
-          {({
-            Gameboard,
-            PieceQueue,
-            points,
-            linesCleared,
-            state,
-            controller,
-          }) => (
-            <div>
-              <div style={{ opacity: state === "PLAYING" ? 1 : 0.5 }}>
-                <Score points={points} linesCleared={linesCleared}></Score>
+    <Tetris>
+      {({ Gameboard, PieceQueue, points, linesCleared, state, controller }) => (
+        <>
+          <div
+            className="overflow-y-auto"
+            style={{ opacity: state === "PLAYING" ? 1 : 0.5 }}
+          >
+            <Score points={points} linesCleared={linesCleared}></Score>
 
-                <div className="flex gap-2">
-                  <Gameboard />
+            <div className="flex gap-2">
+              <Gameboard />
 
-                  <div className="self-start">
-                    <PieceQueue />
-                  </div>
-                </div>
-
-                <Controller controller={controller} />
+              <div className="self-start">
+                <PieceQueue />
               </div>
-              {state === "STOPPED" && (
-                <StartGameModal controller={controller} />
-              )}
-              {state === "PAUSED" && (
-                <Modal
-                  title="Paused"
-                  buttons={[
-                    {
-                      text: "Resume",
-                      action: controller.resume,
-                    },
-                  ]}
-                ></Modal>
-              )}
-
-              {state === "LOST" && (
-                <Modal
-                  title="Game Over"
-                  buttons={[
-                    {
-                      text: "Start",
-                      action: controller.restart,
-                    },
-                  ]}
-                ></Modal>
-              )}
             </div>
+
+            <Controller controller={controller} />
+          </div>
+          {state === "STOPPED" && <StartGameModal controller={controller} />}
+          {state === "PAUSED" && (
+            <Modal
+              title="Paused"
+              buttons={[
+                {
+                  text: "Resume",
+                  action: controller.resume,
+                },
+              ]}
+            ></Modal>
           )}
-        </Tetris>
-      </div>
-    </div>
+
+          {state === "LOST" && (
+            <Modal
+              title="Game Over"
+              buttons={[
+                {
+                  text: "Start",
+                  action: controller.restart,
+                },
+              ]}
+            ></Modal>
+          )}
+        </>
+      )}
+    </Tetris>
   );
 };
 
